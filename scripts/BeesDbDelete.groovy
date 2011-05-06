@@ -1,8 +1,6 @@
-import net.stax.api.StaxClientException
-
 includeTargets << grailsScript("Init")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
-includeTargets << new File("${cloudBeesPluginDir}/scripts/_StaxHelper.groovy")
+includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
@@ -16,13 +14,10 @@ target(beesDbDelete: "Delete a MySQL database.") {
 	
 	def response
 	try {
-		response = staxClient.databaseDelete(dbId)
+		response = beesClient.databaseDelete(dbId)
 		
-	} catch (StaxClientException sce) {
-		printSeparator()
-		println "Database not deleted: $sce.message"
-		printSeparator()
-		exit(0)
+	} catch (Exception e) {
+		dealWith e
 	}
 	
 	printSeparator()

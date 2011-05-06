@@ -11,36 +11,9 @@ target(prepareClient: "Prepare the BeesClient."){
 	)
 }
 
-cloudBeesInvoke = { method ->
-	try {
-		response = beesClient."$method"()
-
-	} catch (BeesClientException bce) {
-		printSeparator()
-		println "Error: $bce.message"
-		printSeparator()
-		exit(0)
-	}
-	return response
-}
-
-cloudBeesInvokeParams = { method, params ->
-	if(params instanceof String){
-		params = [params]
-	}
-    String paramString = ""
-    params.each { param ->
-        paramString += "$param "
-    }
-    def response
-	try {
-		response = beesClient."$method"(paramString)
-
-	} catch (BeesClientException bce) {
-		printSeparator()
-		println "Error: $bce.message"
-		printSeparator()
-		exit(0)
-	}
-	return response
+dealWith = { bce ->
+	printSeparator()
+	println "Error: $bce.message"
+	printSeparator()
+	exit(0)
 }

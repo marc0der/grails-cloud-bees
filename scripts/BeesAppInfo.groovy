@@ -1,6 +1,6 @@
 includeTargets << grailsScript("Init")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
-includeTargets << new File("${cloudBeesPluginDir}/scripts/_StaxHelper.groovy")
+includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
@@ -11,14 +11,19 @@ target(beesAppInfo: "Returns the basic information about an application.") {
 	depends(checkConfig, prepareClient)
 	
 	String appId = getRequiredArg()
-	def info = cloudBeesCall("applicationInfo", appId)
+	def info
+	try {
+		info = beesClient.applicationInfo(appId)
+		
+	} catch (Exception e) {
+		dealWith e
+	}
 	
 	printSeparator()
-	println "Application name : $info.title"
-	println "              id : $info.id"
-	println "         created : $info.created"
-	println "            urls : $info.urls"
-	println "          status : $info.status"
+	println "Application title : $info.title"
+	println "          created : $info.created"
+	println "             urls : $info.urls"
+	println "           status : $info.status"
 	printSeparator()
 }
 

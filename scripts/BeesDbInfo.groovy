@@ -1,8 +1,6 @@
-import net.stax.api.StaxClientException
-
 includeTargets << grailsScript("Init")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
-includeTargets << new File("${cloudBeesPluginDir}/scripts/_StaxHelper.groovy")
+includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
@@ -15,13 +13,10 @@ target(beesDbInfo: "Returns information about connecting to a database.") {
 	String dbId = getRequiredArg()
 	def info
 	try {
-		info = staxClient.databaseInfo(dbId, true)
+		info = beesClient.databaseInfo(dbId, true)
 		
-	} catch (StaxClientException sce) {
-		printSeparator()
-		println "Error: $sce.message"
-		printSeparator()
-		exit(0)
+	} catch (Exception e) {
+		dealWith e
 	}
 	
 	printSeparator()

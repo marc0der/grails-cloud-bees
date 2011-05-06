@@ -1,8 +1,6 @@
-import net.stax.api.StaxClientException
-
 includeTargets << grailsScript("Init")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
-includeTargets << new File("${cloudBeesPluginDir}/scripts/_StaxHelper.groovy")
+includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
@@ -14,16 +12,13 @@ target(beesAppChecksums: "Returns the checksums for an application.") {
 	
 	String appId = getRequiredArg()
 	def response
-	try {
-		response = staxClient.applicationCheckSums(appId)
+	try{
+		response = beesClient.applicationCheckSums(appId)
 		
-	} catch (StaxClientException sce) {
-		printSeparator()
-		println "Error: $sce.message"
-		printSeparator()
-		exit(0)
+	} catch (Exception e){
+		dealWith e
 	}
-	
+		
 	printSeparator()
 	println "Application CheckSums:"
 	printSeparator()
@@ -31,6 +26,9 @@ target(beesAppChecksums: "Returns the checksums for an application.") {
 	checksums.each { key, value ->
 		println "  $key : $value"
 	}
+	
+	if(!checksums) println "No checksums found. Is $appId a valid application?"
+	
 	printSeparator()
 }
 

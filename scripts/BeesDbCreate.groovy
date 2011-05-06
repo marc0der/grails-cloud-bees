@@ -1,8 +1,6 @@
-import net.stax.api.StaxClientException
-
 includeTargets << grailsScript("Init")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
-includeTargets << new File("${cloudBeesPluginDir}/scripts/_StaxHelper.groovy")
+includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
@@ -19,13 +17,10 @@ target(beesDbCreate: "Create a new MySQL database.") {
 	
 	def response
 	try {
-		response = staxClient.databaseCreate(domain, dbId, username, password)
+		response = beesClient.databaseCreate(domain, dbId, username, password)
 		
-	} catch (StaxClientException sce) {
-		printSeparator()
-		println "Database not created: $sce.message"
-		printSeparator()
-		exit(0)
+	} catch (Exception e) {
+		dealWith e
 	}
 	
 	printSeparator()

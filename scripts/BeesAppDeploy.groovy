@@ -1,9 +1,8 @@
-import net.stax.api.HashWriteProgress
-import net.stax.api.StaxClientException
+import com.cloudbees.api.HashWriteProgress
 
 includeTargets << grailsScript("Init")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
-includeTargets << new File("${cloudBeesPluginDir}/scripts/_StaxHelper.groovy")
+includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
@@ -20,13 +19,10 @@ target(beesAppDeploy: "Deploy a new version of an application using a WAR archiv
 	def response
 	def progress = new HashWriteProgress()
 	try {
-		response = staxClient.applicationDeployWar(appId, null, tag, war, null, true, progress)
+		response = beesClient.applicationDeployWar(appId, null, tag, war, null, true, progress)
 		
-	} catch (StaxClientException sce) {
-		printSeparator()
-		println "Application not created: $sce.message"
-		printSeparator()
-		exit(0)
+	} catch (Exception e) {
+		dealWith e
 	}
 	
 	printSeparator()
