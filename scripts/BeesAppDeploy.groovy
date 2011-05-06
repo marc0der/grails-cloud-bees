@@ -7,24 +7,24 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_StaxHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-app-deploy <appId> "<message>" WAR_ARCHIVE_FILE
+grails bees-app-deploy <appId> <release tag> WAR_ARCHIVE_FILE
 '''
 
 target(beesAppDeploy: "Deploy a new version of an application using a WAR archive file.") {
 	depends(checkConfig, prepareClient)
 	
 	String appId = getRequiredArg(0)
-	String message = getRequiredArg(1)
+	String tag = getRequiredArg(1)
 	String war = getRequiredArg(2)
 	
 	def response
 	def progress = new HashWriteProgress()
 	try {
-		response = staxClient.applicationDeployWar(appId, null, message, war, null, true, progress)
+		response = staxClient.applicationDeployWar(appId, null, tag, war, null, true, progress)
 		
 	} catch (StaxClientException sce) {
 		printSeparator()
-		println "Database not created: $sce.message"
+		println "Application not created: $sce.message"
 		printSeparator()
 		exit(0)
 	}
