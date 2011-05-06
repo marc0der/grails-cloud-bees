@@ -5,6 +5,7 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
 grails bees-app-delete <appId>
+	appId : the application id (in the form user/appname)
 '''
 
 target(beesAppDelete: "Delete an application.") {

@@ -6,7 +6,10 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-app-deploy <appId> <release tag> WAR_ARCHIVE_FILE
+grails bees-app-deploy <appId> <tag> <war>
+	appId : the application id (in the form user/appname)
+	tag   : the release tag or version
+	war   : the path to the warfile (absolute or relative)
 '''
 
 target(beesAppDeploy: "Deploy a new version of an application using a WAR archive file.") {

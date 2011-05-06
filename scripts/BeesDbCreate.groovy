@@ -5,6 +5,10 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
 grails bees-db-create <domain> <dbId> <username> <password>
+	domain   : the domain or owner
+	dbId     : the database name
+	username : the database username
+	password : the database password
 '''
 
 target(beesDbCreate: "Create a new MySQL database.") {

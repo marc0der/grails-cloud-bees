@@ -5,6 +5,7 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
 grails bees-db-delete <dbId>
+	dbId     : the database name
 '''
 
 target(beesDbDelete: "Delete a MySQL database.") {

@@ -5,7 +5,8 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
 grails bees-app-tail <appId> LOGNAME
-  LOGNAME: server, access or error
+	appId   : the application id (in the form user/appname)
+    LOGNAME : server, access or error
 '''
 
 target(beesAppTail: "Establishes a persistent connection to the application logs.") {

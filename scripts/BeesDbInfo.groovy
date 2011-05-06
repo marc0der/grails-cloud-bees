@@ -5,6 +5,7 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
 grails bees-db-info <dbId>
+	dbId     : the database name
 '''
 
 target(beesDbInfo: "Returns information about connecting to a database.") {

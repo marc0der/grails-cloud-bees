@@ -5,6 +5,7 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
 grails bees-app-restart <appId>
+	appId : the application id (in the form user/appname)
 '''
 
 target(beesAppRestart: "Restarts all deployed instances of an application.") {

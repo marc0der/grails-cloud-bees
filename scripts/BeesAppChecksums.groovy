@@ -5,6 +5,7 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
 grails bees-app-checksums <appId>
+	appId : the application id (in the form user/appname)
 '''
 
 target(beesAppChecksums: "Returns the checksums for an application.") {
