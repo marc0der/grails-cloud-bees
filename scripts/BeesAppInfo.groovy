@@ -1,5 +1,3 @@
-import net.stax.api.StaxClientException
-
 includeTargets << grailsScript("Init")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_StaxHelper.groovy")
@@ -13,16 +11,7 @@ target(beesAppInfo: "Returns the basic information about an application.") {
 	depends(checkConfig, prepareClient)
 	
 	String appId = getRequiredArg()
-	def info
-	try {
-		info = staxClient.applicationInfo(appId)
-		
-	} catch (StaxClientException sce) {
-		printSeparator()
-		println "Error: $sce.message"
-		printSeparator()
-		exit(0)
-	}
+	def info = cloudBeesCall("applicationInfo", appId)
 	
 	printSeparator()
 	println "Application name : $info.title"
