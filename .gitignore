@@ -2,3 +2,6 @@ target/
 plugin.xml
 web-app/
 grails-cloud-bees-0.1.zip
+grails-app/
+lib/commons-httpclient-*.jar
+lib/xstream-*.jar
