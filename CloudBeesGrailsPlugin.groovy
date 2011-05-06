@@ -9,7 +9,7 @@ class CloudBeesGrailsPlugin {
     def pluginExcludes = [
             "grails-app/",
 			"lib/",
-			"web-app"
+			"web-app/"
     ]
 
     def author = "Marco Vermeulen"
