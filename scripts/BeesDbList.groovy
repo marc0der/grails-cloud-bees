@@ -23,9 +23,13 @@ target(beesDbList: "Returns a list of all the databases associated with your acc
 	printSeparator()
 	println "Database List:"
 	printSeparator()
+	
 	infos.each { info ->
 		println "$info.name ($info.status)"
 	}
+	
+	if(!infos) println "No Databases found."
+	
 	printSeparator()
 }
 

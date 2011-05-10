@@ -22,9 +22,13 @@ target(beesAppList: "Returns the list of applications available to your account.
 	printSeparator()
 	println "Application List:"
 	printSeparator()
+
 	infos.each { info ->
 		println "$info.title ($info.status)"
 	}
+
+	if(!infos) println "No applications found."
+
 	printSeparator()
 }
 
