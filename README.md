@@ -54,4 +54,4 @@ All commands have comprehensive help, which can be viewed as follows:
     
 ## Source Code
 
-Source code can be found on GitHub at: [linkref]: https://github.com/marcoVermeulen/grails-cloud-bees
+Source code can be found on GitHub at: https://github.com/marcoVermeulen/grails-cloud-bees
