@@ -38,7 +38,10 @@ The following commands are provided:
     bees-app-stop <appId>
     bees-app-tail <appId> LOGNAME
 
-    bees-db-create <domain> <dbId> <username> <password> bees-db-delete <dbId> bees-db-info <dbId> bees-db-list
+    bees-db-create <domain> <dbId> <username> <password> 
+    bees-db-delete <dbId>
+    bees-db-info <dbId>
+    bees-db-list
 
 All commands have comprehensive help, which can be viewed as follows:
 
