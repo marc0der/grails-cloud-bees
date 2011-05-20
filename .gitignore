@@ -1,6 +1,6 @@
 target/
 plugin.xml
 web-app/
-grails-cloud-bees-0.1.zip
+grails-cloud-bees-*.zip
 grails-app/
 lib/
