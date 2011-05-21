@@ -1,10 +1,13 @@
+//prepare system properties and grailsEnv variable
+System.setProperty "grails.env.set", "true"
+System.setProperty "grails.env", "test"
+grailsEnv = "test"
+
 includeTargets << grailsScript("Init")
 includeTargets << grailsScript("TestApp")
 
 target(main: "Runs the test-app script overriding environment to be test.") {
-	def environment = "test"
-	println "Override ${System.getProperty('grails.env')} environment with $environment"
-	System.setProperty "grails.env", environment
+	println "Environment set to ${System.getProperty('grails.env')}"
 	depends("default")
 }
 
