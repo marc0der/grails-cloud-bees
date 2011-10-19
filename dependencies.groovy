@@ -24,10 +24,4 @@ grails.project.dependency.resolution = {
 		runtime('com.thoughtworks.xstream:xstream:1.3.1')
 		runtime('com.cloudbees:cloudbees-api-client:0.8.0')
 	}
-
-	plugins {
-		build(':maven-publisher:0.7.5') {
-			export = false
-		}
-	}
 }
