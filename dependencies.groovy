@@ -20,8 +20,8 @@ grails.project.dependency.resolution = {
 	}
 
 	dependencies {
-		runtime('commons-httpclient:commons-httpclient:3.1')
-		runtime('com.thoughtworks.xstream:xstream:1.3.1')
-		runtime('com.cloudbees:cloudbees-api-client:0.8.0')
+		runtime('com.cloudbees:cloudbees-api-client:0.8.0'){
+			excludes 'stax-api'
+		}
 	}
 }
