@@ -1,6 +1,6 @@
 class CloudBeesGrailsPlugin {
     // the plugin version
-    def version = "0.1.1"
+    def version = "0.1.2"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.0 > *"
     // the other plugins this plugin depends on
@@ -12,6 +12,9 @@ class CloudBeesGrailsPlugin {
 			"web-app/"
     ]
 
+	def license = "APACHE 2.0"
+	def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPCLOUDBEES" ]
+	def scm = [ url: "http://github.com/marcoVermeulen/grails-cloud-bees" ]
     def author = "Marco Vermeulen"
     def authorEmail = "vermeulen.mp@gmail.com"
     def title = "CloudBees"
