@@ -20,7 +20,7 @@ grails.project.dependency.resolution = {
 	}
 
 	dependencies {
-		runtime('com.cloudbees:cloudbees-api-client:0.8.0'){
+		runtime('com.cloudbees:cloudbees-api-client:1.1.1'){
 			excludes 'stax-api'
 		}
 	}
