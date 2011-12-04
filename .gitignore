@@ -4,3 +4,9 @@ web-app/
 grails-cloud-bees-*.zip
 grails-app/
 lib/
+.classpath
+.project
+.settings/
+stacktrace.log
+target
+target-eclipse/
