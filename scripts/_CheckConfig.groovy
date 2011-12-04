@@ -3,15 +3,13 @@ includeTargets << grailsScript("_GrailsPackage")
 target(checkConfig: "Ensure that the configuration is set."){
 	depends(compile, createConfig)
 
-	println "Checking config..."
+	event("StatusUpdate", ["Checking CloudBees config"])
 	if(!(config.cloudbees.api.url && config.cloudbees.api.key && config.cloudbees.api.secret)){
-		println "-------------------------------------------------------------------------"
-		println "Plugin not configured!"
-		println "Please add appropriate configuration to the Config.groovy:"
-		if(!config.cloudbees.api.url) println "The API url    : cloudbees.api.url"
-		if(!config.cloudbees.api.key) println "The API key    : cloudbees.api.key"
-		if(!config.cloudbees.api.secret) println "The API secret : cloudbees.api.secret"
-		println "-------------------------------------------------------------------------"
+		event "StatusError",  ["CloudBees Plugin not configured!"]
+		event "StatusError",  ["Please add appropriate configuration for:"]
+		if(!config.cloudbees.api.url) event("StatusError",  ["The API url    : cloudbees.api.url"])
+		if(!config.cloudbees.api.key) event("StatusError",  ["The API key    : cloudbees.api.key"])
+		if(!config.cloudbees.api.secret) event("StatusError",  ["The API secret : cloudbees.api.secret"])
 		exit(0)
 	}
 }

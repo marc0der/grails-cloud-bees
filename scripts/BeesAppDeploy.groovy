@@ -16,8 +16,13 @@ target(beesAppDeploy: "Deploy a new version of an application using a WAR archiv
 	depends(checkConfig, prepareClient)
 	
 	String appId = getRequiredArg(0)
+	if(!appId) return
+	
 	String tag = getRequiredArg(1)
+	if(!tag) return
+	
 	String war = getRequiredArg(2)
+	if(!war) return
 	
 	def response
 	def progress = new HashWriteProgress()
@@ -28,9 +33,7 @@ target(beesAppDeploy: "Deploy a new version of an application using a WAR archiv
 		dealWith e
 	}
 	
-	printSeparator()
-	println "Application uploaded successfully to: $response.url"
-	printSeparator()
+	event "StatusFinal", ["Application uploaded successfully to: $response.url"]
 }
 
 setDefaultTarget(beesAppDeploy)

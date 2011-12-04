@@ -20,17 +20,14 @@ target(beesDbList: "Returns a list of all the databases associated with your acc
 	
 	def infos = response.databases
 	
-	printSeparator()
-	println "Database List:"
-	printSeparator()
+	event "StatusFinal", ["Database List:"]
 	
 	infos.each { info ->
-		println "$info.name ($info.status)"
+		event "StatusFinal", ["    $info.name ($info.status)"]
 	}
 	
-	if(!infos) println "No Databases found."
+	if(!infos) event "StatusFinal", ["    No Databases found."]
 	
-	printSeparator()
 }
 
 setDefaultTarget(beesDbList)

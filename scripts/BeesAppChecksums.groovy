@@ -12,6 +12,8 @@ target(beesAppChecksums: "Returns the checksums for an application.") {
 	depends(checkConfig, prepareClient)
 	
 	String appId = getRequiredArg()
+	if(!appId) return
+	
 	def response
 	try{
 		response = beesClient.applicationCheckSums(appId)
@@ -20,17 +22,14 @@ target(beesAppChecksums: "Returns the checksums for an application.") {
 		dealWith e
 	}
 		
-	printSeparator()
-	println "Application CheckSums:"
-	printSeparator()
+	event "StatusFinal", ["Application CheckSums:"]
+
 	def checksums = response.checkSums
 	checksums.each { key, value ->
-		println "  $key : $value"
+		event "StatusFinal", ["    ${value.toString()?.padLeft(10)} : $key"]
 	}
 	
-	if(!checksums) println "No checksums found. Is $appId a valid application?"
-	
-	printSeparator()
+	if(!checksums) event("StatusFinal", ["    No checksums found. Is $appId a valid application?"])
 }
 
 setDefaultTarget(beesAppChecksums)

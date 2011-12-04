@@ -12,6 +12,8 @@ target(beesAppInfo: "Returns the basic information about an application.") {
 	depends(checkConfig, prepareClient)
 	
 	String appId = getRequiredArg()
+	if(!appId) return
+	
 	def info
 	try {
 		info = beesClient.applicationInfo(appId)
@@ -20,12 +22,10 @@ target(beesAppInfo: "Returns the basic information about an application.") {
 		dealWith e
 	}
 	
-	printSeparator()
-	println "Application title : $info.title"
-	println "          created : $info.created"
-	println "             urls : $info.urls"
-	println "           status : $info.status"
-	printSeparator()
+	event "StatusFinal", ["Application title : $info.title"]
+	event "StatusFinal", ["          created : $info.created"]
+	event "StatusFinal", ["             urls : $info.urls"]
+	event "StatusFinal", ["           status : $info.status"]
 }
 
 setDefaultTarget(beesAppInfo)

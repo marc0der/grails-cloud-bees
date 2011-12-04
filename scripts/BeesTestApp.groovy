@@ -7,7 +7,7 @@ includeTargets << grailsScript("Init")
 includeTargets << grailsScript("TestApp")
 
 target(main: "Runs the test-app script overriding environment to be test.") {
-	println "Environment set to ${System.getProperty('grails.env')}"
+	event "StatusUpdate", ["Environment set to ${System.getProperty('grails.env')} for testing."]
 	depends("default")
 }
 

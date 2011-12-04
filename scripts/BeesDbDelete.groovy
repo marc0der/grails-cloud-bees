@@ -12,6 +12,7 @@ target(beesDbDelete: "Delete a MySQL database.") {
 	depends(checkConfig, prepareClient)
 	
 	String dbId = getRequiredArg(0)
+	if(!dbId) return
 	
 	def response
 	try {
@@ -21,9 +22,8 @@ target(beesDbDelete: "Delete a MySQL database.") {
 		dealWith e
 	}
 	
-	printSeparator()
-	println "Database $dbId deleted successfully: $response.deleted"
-	printSeparator()
+	event "StatusFinal", ["Database $dbId deleted successfully: $response.deleted"]
+
 }
 
 setDefaultTarget(beesDbDelete)

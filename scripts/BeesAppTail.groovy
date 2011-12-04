@@ -13,8 +13,13 @@ target(beesAppTail: "Establishes a persistent connection to the application logs
 	depends(checkConfig, prepareClient)
 	
 	String appId = getRequiredArg(0)
+	if(!appId) return
+	
 	String log = getRequiredArg(1)
+	if(!log) return
+	
 	try {
+		event "StatusFinal", ["Tailing log $log on $appId"]
 		beesClient.tailLog(appId, log, System.out)
 		
 	} catch (Exception e) {

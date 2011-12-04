@@ -19,17 +19,14 @@ target(beesAppList: "Returns the list of applications available to your account.
 	}
 	def infos = response.applications
 	
-	printSeparator()
-	println "Application List:"
-	printSeparator()
+	event "StatusFinal", ["Application List:"]
 
 	infos.each { info ->
-		println "$info.title ($info.status)"
+		event "StatusFinal", ["    $info.title ($info.status)"]
 	}
 
-	if(!infos) println "No applications found."
+	if(!infos) event "StatusFinal", ["No applications found."]
 
-	printSeparator()
 }
 
 setDefaultTarget(beesAppList)

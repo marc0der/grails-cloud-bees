@@ -12,6 +12,8 @@ target(beesAppDelete: "Delete an application.") {
 	depends(checkConfig, prepareClient)
 	
 	String appId = getRequiredArg(0)
+	if(!appId) return
+	
 	def response
 	try {
 		response = beesClient.applicationDelete(appId)
@@ -20,9 +22,8 @@ target(beesAppDelete: "Delete an application.") {
 		dealWith e
 	}
 	
-	printSeparator()
-	println "Application $appId deleted successfully: $response.deleted"
-	printSeparator()
+	event "StatusFinal", ["Application $appId deleted successfully: $response.deleted"]
+	
 }
 
 setDefaultTarget(beesAppDelete)

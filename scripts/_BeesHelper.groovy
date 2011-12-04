@@ -1,9 +1,9 @@
 import com.cloudbees.api.BeesClient
 import com.cloudbees.api.BeesClientException
 
-target(prepareClient: "Prepare the BeesClient."){
-	println "Preparing the BeesClient..."
-    beesClient = new BeesClient(
+target(prepareClient: "Prepare the BeesClient"){
+	event "StatusUpdate", ["Preparing the BeesClient"]
+	beesClient = new BeesClient(
 		config.cloudbees.api.url, 
 		config.cloudbees.api.key, 
 		config.cloudbees.api.secret, 
@@ -12,8 +12,6 @@ target(prepareClient: "Prepare the BeesClient."){
 }
 
 dealWith = { bce ->
-	printSeparator()
-	println "Error: $bce.message"
-	printSeparator()
+	event "StatusError", ["Error: $bce.message"]
 	exit(0)
 }

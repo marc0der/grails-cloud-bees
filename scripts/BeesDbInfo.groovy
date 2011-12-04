@@ -12,6 +12,8 @@ target(beesDbInfo: "Returns information about connecting to a database.") {
 	depends(checkConfig, prepareClient)
 	
 	String dbId = getRequiredArg()
+	if(!dbId) return
+	
 	def info
 	try {
 		info = beesClient.databaseInfo(dbId, true)
@@ -20,17 +22,16 @@ target(beesDbInfo: "Returns information about connecting to a database.") {
 		dealWith e
 	}
 	
-	printSeparator()
-	println "Database Name : $info.name"
-	println "      created : $info.created"
-	println "        owner : $info.owner"
-	println "     username : $info.username"
-	println "     password : $info.password"
-	println "       master : $info.master"
-	println "         port : $info.port"
-	println "       slaves : $info.slaves"
-	println "       status : $info.status"
-	printSeparator()
+	event "StatusFinal", ["Database Name : $info.name"]
+	event "StatusFinal", ["      created : $info.created"]
+	event "StatusFinal", ["        owner : $info.owner"]
+	event "StatusFinal", ["     username : $info.username"]
+	event "StatusFinal", ["     password : $info.password"]
+	event "StatusFinal", ["       master : $info.master"]
+	event "StatusFinal", ["         port : $info.port"]
+	event "StatusFinal", ["       slaves : $info.slaves"]
+	event "StatusFinal", ["       status : $info.status"]
+
 }
 
 setDefaultTarget(beesDbInfo)

@@ -15,9 +15,16 @@ target(beesDbCreate: "Create a new MySQL database.") {
 	depends(checkConfig, prepareClient)
 	
 	String domain = getRequiredArg(0)
+	if(!domain) return
+	
 	String dbId = getRequiredArg(1)
+	if(!dbId) return
+	
 	String username = getRequiredArg(2)
+	if(!username) return
+	
 	String password = getRequiredArg(3)
+	if(!password) return
 	
 	def response
 	try {
@@ -27,10 +34,9 @@ target(beesDbCreate: "Create a new MySQL database.") {
 		dealWith e
 	}
 	
-	printSeparator()
-	println "Database created successfully."
-	println "Database ID : $response.databaseId"
-	printSeparator()
+	event "StatusFinal", ["Database created successfully."]
+	event "StatusFinal", ["Database ID : $response.databaseId"]
+
 }
 
 setDefaultTarget(beesDbCreate)

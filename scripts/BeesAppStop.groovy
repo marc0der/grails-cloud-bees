@@ -12,6 +12,8 @@ target(beesAppStop: "Stops all deployed instances of an application.") {
 	depends(checkConfig, prepareClient)
 	
 	String appId = getRequiredArg()
+	if(!appId) return
+	
 	def response
 	try {
 		response = beesClient.applicationStop(appId)
@@ -20,9 +22,7 @@ target(beesAppStop: "Stops all deployed instances of an application.") {
 		dealWith e
 	}
 	
-	printSeparator()
-	println "Application stopped successfully. status: $response.status"
-	printSeparator()
+	event "StatusFinal", ["Application stopped successfully. status: $response.status"]
 }
 
 setDefaultTarget(beesAppStop)

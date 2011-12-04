@@ -4,10 +4,6 @@ getRequiredArg = { int index = 0 ->
 	if (value && (value != 'help')) {
 		return value
 	}
-	println "\nUsage (optionals in square brackets):\n$USAGE"
-	exit(0)
-}
-
-printSeparator = {
-	println "-------------------------------------------------------------------------"
+	event "StatusFinal", ["\nUsage (optionals in square brackets):\n$USAGE"]
+	return ""
 }
