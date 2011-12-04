@@ -9,6 +9,7 @@ target(prepareClient: "Prepare the BeesClient"){
 		config.cloudbees.api.secret, 
 		'xml', '1.0'
 	)
+	beesClient.verbose = false
 }
 
 dealWith = { bce ->
