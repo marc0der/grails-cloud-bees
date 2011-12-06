@@ -6,8 +6,8 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-app-stop <appId>
-	appId : the application id (in the form user/appname)
+grails bees-app-stop [appId]
+	appId : the application id (defaults to appname)
 '''
 
 target(beesAppStop: "Stops all deployed instances of an application.") {

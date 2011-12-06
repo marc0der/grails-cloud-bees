@@ -4,8 +4,8 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-app-info <appId>
-	appId : the application id (in the form user/appname)
+grails bees-app-info [appId]
+    appId : application id (defaults to application name)
 '''
 
 target(beesAppInfo: "Returns the basic information about an application.") {

@@ -8,8 +8,8 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
 grails bees-app-deploy [appId] [tag]
-        appId : application id (defaults to application name)
-        tag   : release tag (defaults to application version)
+    appId : application id (defaults to application name)
+    tag   : release tag (defaults to application version)
 '''
 
 target(beesAppDeploy: "Deploy a new version of an application using a WAR archive file.") {
