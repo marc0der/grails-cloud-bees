@@ -21,7 +21,7 @@ target(beesDbInfo: "Returns information about connecting to a database.") {
 	} catch (Exception e) {
 		dealWith e
 	}
-	
+		
 	event "StatusFinal", ["Database Name : $info.name"]
 	event "StatusFinal", ["      created : $info.created"]
 	event "StatusFinal", ["        owner : $info.owner"]
@@ -32,6 +32,10 @@ target(beesDbInfo: "Returns information about connecting to a database.") {
 	event "StatusFinal", ["       slaves : $info.slaves"]
 	event "StatusFinal", ["       status : $info.status"]
 
+	def dataSourceFragment = buildDataSourceFragment(info)
+	event "StatusFinal", ["\n\nThe following datasource block may be added to your DataSource.groovy:"]
+	event "StatusFinal", ["$dataSourceFragment"]
+	
 }
 
 setDefaultTarget(beesDbInfo)

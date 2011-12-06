@@ -17,3 +17,27 @@ dealWith = { bce ->
 	event "StatusError", ["Error: $bce.message"]
 	exit(0)
 }
+
+buildDataSourceFragment = { info ->
+	"""
+        dataSource {
+            pooled = true
+            driverClassName = "com.mysql.jdbc.Driver"
+            username = "${info.username}"
+            password = "${info.password}"
+            url = "jdbc:mysql://${info.master}/${info.name}"
+            loggingSql = false
+
+            properties {
+                maxActive = 25
+                maxIdle = 5
+                minIdle = 1
+                initialSize = 1
+                minEvictableIdleTimeMillis = 60000
+                timeBetweenEvictionRunsMillis = 60000
+                maxWait = 10000
+                validationQuery = "select 1"
+            }
+        }
+	"""
+}
