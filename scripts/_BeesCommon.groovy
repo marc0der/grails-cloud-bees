@@ -11,7 +11,7 @@ usage = {
 }
 
 buildAppId = {
-	String account = config.cloudbees.account
+	String account = grailsSettings.config.cloudbees.account
 	String optionalName = getOptionalArg(0)
 	String configAppName = Metadata.current.'app.name'
 	String appName = optionalName ?: configAppName.toLowerCase()
