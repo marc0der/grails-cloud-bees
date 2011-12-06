@@ -1,18 +1,21 @@
+import grails.util.Metadata
+
 includeTargets << grailsScript("Init")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-app-restart <appId>
-	appId : the application id (in the form user/appname)
+grails bees-app-restart [appId]
+	appId : the application id (defaults to appname)
 '''
 
 target(beesAppRestart: "Restarts all deployed instances of an application.") {
 	depends(checkConfig, prepareClient)
 	
-	String appId = getRequiredArg()
-	if(!appId) return
+	if(usage()) return
+	
+	String appId = buildAppId()
 	
 	def response
 	try {
@@ -21,7 +24,7 @@ target(beesAppRestart: "Restarts all deployed instances of an application.") {
 	} catch (Exception e) {
 		dealWith e
 	}
-	event "StatusFinal", ["Application restarted successfully: $response.restarted"]
+	event "StatusFinal", ["Application $appId restarted successfully: $response.restarted"]
 
 }
 

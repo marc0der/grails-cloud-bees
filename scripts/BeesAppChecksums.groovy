@@ -4,15 +4,16 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-app-checksums <appId>
-	appId : the application id (in the form user/appname)
+grails bees-app-checksums [appId]
+	appId : the application id (defaults to appname)
 '''
 
 target(beesAppChecksums: "Returns the checksums for an application.") {
 	depends(checkConfig, prepareClient)
 	
-	String appId = getRequiredArg()
-	if(!appId) return
+	if(usage()) return
+	
+	String appId = buildAppId()
 	
 	def response
 	try{
@@ -22,7 +23,7 @@ target(beesAppChecksums: "Returns the checksums for an application.") {
 		dealWith e
 	}
 		
-	event "StatusFinal", ["Application CheckSums:"]
+	event "StatusFinal", ["Application CheckSums for ${appId}:"]
 
 	def checksums = response.checkSums
 	checksums.each { key, value ->

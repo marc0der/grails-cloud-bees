@@ -1,23 +1,25 @@
+import grails.util.Metadata
+
 includeTargets << grailsScript("Init")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-app-tail <appId> LOGNAME
-	appId   : the application id (in the form user/appname)
-    LOGNAME : server, access or error
+grails bees-app-tail [LOGNAME] [appId]
+    LOGNAME : server, access or error (defaults to server)
+    appId : the application id (in the form user/appname)
 '''
 
 target(beesAppTail: "Establishes a persistent connection to the application logs.") {
 	depends(checkConfig, prepareClient)
 	
-	String appId = getRequiredArg(0)
-	if(!appId) return
+	if(usage()) return
 	
-	String log = getRequiredArg(1)
-	if(!log) return
+	String log = getOptionalArg(0) ?: 'server'
 	
+	String appId = buildAppId()
+		
 	try {
 		event "StatusFinal", ["Tailing log $log on $appId"]
 		beesClient.tailLog(appId, log, System.out)

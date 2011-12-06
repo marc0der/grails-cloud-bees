@@ -4,15 +4,16 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-app-delete <appId>
-	appId : the application id (in the form user/appname)
+grails bees-app-delete [appId]
+	appId : the application id (defaults to appname)
 '''
 
 target(beesAppDelete: "Delete an application.") {
 	depends(checkConfig, prepareClient)
 	
-	String appId = getRequiredArg(0)
-	if(!appId) return
+	if(usage()) return
+	
+	String appId = buildAppId()
 	
 	def response
 	try {

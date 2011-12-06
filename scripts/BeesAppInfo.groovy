@@ -11,8 +11,9 @@ grails bees-app-info <appId>
 target(beesAppInfo: "Returns the basic information about an application.") {
 	depends(checkConfig, prepareClient)
 	
-	String appId = getRequiredArg()
-	if(!appId) return
+	if(usage()) return
+	
+	String appId = buildAppId()
 	
 	def info
 	try {

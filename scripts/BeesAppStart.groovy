@@ -1,3 +1,5 @@
+import grails.util.Metadata
+
 includeTargets << grailsScript("Init")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
@@ -11,8 +13,9 @@ grails bees-app-start <appId>
 target(beesAppStart: "Starts all deployed instances of an application.") {
 	depends(checkConfig, prepareClient)
 	
-	String appId = getRequiredArg()
-	if(!appId) return
+	if(usage()) return
+	
+	String appId = buildAppId()
 	
 	def response
 	try {
@@ -22,7 +25,7 @@ target(beesAppStart: "Starts all deployed instances of an application.") {
 		dealWith e
 	}
 	
-	event "StatusFinal", ["Application started successfully. status: $response.status"]
+	event "StatusFinal", ["Application $appId started successfully. status: $response.status"]
 }
 
 setDefaultTarget(beesAppStart)
