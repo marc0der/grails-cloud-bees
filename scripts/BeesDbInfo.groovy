@@ -4,15 +4,15 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-db-info <dbId>
-	dbId     : the database name
+grails bees-db-info [dbId]
+	dbId     : the database name (defaults to the application name)
 '''
 
 target(beesDbInfo: "Returns information about connecting to a database.") {
 	depends(checkConfig, prepareClient)
+	if(usage()) return
 	
-	String dbId = getRequiredArg()
-	if(!dbId) return
+	String dbId = buildDbId()
 	
 	def info
 	try {

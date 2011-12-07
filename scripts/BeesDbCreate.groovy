@@ -4,31 +4,24 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-db-create <domain> <dbId> <username> <password>
-	domain   : the domain or owner
-	dbId     : the database name
-	username : the database username
-	password : the database password
+grails bees-db-create [dbId] [username] [password]
+	dbId     : the database name (defaults to application name)
+	username : the database username (deafaults to application name)
+	password : the database password (deafaults to application name)
 '''
 
 target(beesDbCreate: "Create a new MySQL database.") {
 	depends(checkConfig, prepareClient)
-	
-	String domain = getRequiredArg(0)
-	if(!domain) return
-	
-	String dbId = getRequiredArg(1)
-	if(!dbId) return
-	
-	String username = getRequiredArg(2)
-	if(!username) return
-	
-	String password = getRequiredArg(3)
-	if(!password) return
+	if(usage()) return
+
+	String dbId = buildDbId()
+	String username = getOptionalArg(1) ?: dbId
+	String password = getOptionalArg(2) ?: dbId
+	String account = grailsSettings.config.cloudbees.account
 	
 	def response
 	try {
-		response = beesClient.databaseCreate(domain, dbId, username, password)
+		response = beesClient.databaseCreate(account, dbId, username, password)
 		
 	} catch (Exception e) {
 		dealWith e

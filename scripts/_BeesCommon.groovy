@@ -18,6 +18,12 @@ buildAppId = {
 	"${account}/${appName}"
 }
 
+buildDbId = {
+	String optionalName = getOptionalArg(0)
+	String configAppName = Metadata.current.'app.name'
+	return (optionalName ?: configAppName.toLowerCase())
+}
+
 buildAppTag = {
 	String appVersion = Metadata.current.'app.version'
 	String optionalTag = getOptionalArg(1)
