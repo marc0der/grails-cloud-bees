@@ -21,6 +21,7 @@ dealWith = { bce ->
 buildDataSourceFragment = { info ->
 	"""
         dataSource {
+			dbCreate = "update"
             pooled = true
             driverClassName = "com.mysql.jdbc.Driver"
             username = "${info.username}"
