@@ -7,7 +7,7 @@ USAGE = '''
 grails bees-db-create [dbId] [username] [password]
 	dbId     : the database name (defaults to application name)
 	username : the database username (deafaults to application name)
-	password : the database password (deafaults to application name)
+	password : the database password (deafaults to changeme!)
 '''
 
 target(beesDbCreate: "Create a new MySQL database.") {
@@ -16,7 +16,7 @@ target(beesDbCreate: "Create a new MySQL database.") {
 
 	String dbId = buildDbId()
 	String username = getOptionalArg(1) ?: dbId
-	String password = getOptionalArg(2) ?: dbId
+	String password = getOptionalArg(2) ?: 'changeme!'
 	String account = grailsSettings.config.cloudbees.account
 	
 	def response
