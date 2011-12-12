@@ -4,11 +4,11 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-db-delete [dbId]
+grails bees-db-drop [dbId]
 	dbId     : the database name (defaults to the application name)
 '''
 
-target(beesDbDelete: "Delete a MySQL database.") {
+target(beesDbDrop: "Drop a MySQL database.") {
 	depends(checkConfig, prepareClient)
 	if(usage()) return
 	
@@ -22,8 +22,8 @@ target(beesDbDelete: "Delete a MySQL database.") {
 		dealWith e
 	}
 	
-	event "StatusFinal", ["Database $dbId deleted successfully: $response.deleted"]
+	event "StatusFinal", ["Database $dbId dropped successfully: $response.deleted"]
 
 }
 
-setDefaultTarget(beesDbDelete)
+setDefaultTarget(beesDbDrop)
