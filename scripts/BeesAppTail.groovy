@@ -6,9 +6,9 @@ includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-app-tail [LOGNAME] [appId]
-    LOGNAME : server, access or error (defaults to server)
+grails bees-app-tail [appId] [LOGNAME] 
     appId : the application id (in the form user/appname)
+    LOGNAME : server, access or error (defaults to server)
 '''
 
 target(beesAppTail: "Establishes a persistent connection to the application logs.") {
@@ -16,7 +16,7 @@ target(beesAppTail: "Establishes a persistent connection to the application logs
 	
 	if(usage()) return
 	
-	String log = getOptionalArg(0) ?: 'server'
+	String log = getOptionalArg(1) ?: 'server'
 	
 	String appId = buildAppId()
 		
