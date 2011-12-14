@@ -15,8 +15,6 @@ grails bees-app-deploy [appId] [tag]
 target(beesAppDeploy: "Deploy a new version of an application using a WAR archive file.") {
 	depends(checkConfig, prepareClient)
 	
-	if(usage()) return
-	
 	String appId = buildAppId()
 	String tag = buildAppTag()
 	

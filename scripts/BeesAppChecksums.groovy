@@ -11,8 +11,6 @@ grails bees-app-checksums [appId]
 target(beesAppChecksums: "Returns the checksums for an application.") {
 	depends(checkConfig, prepareClient)
 	
-	if(usage()) return
-	
 	String appId = buildAppId()
 	
 	def response

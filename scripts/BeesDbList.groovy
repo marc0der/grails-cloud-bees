@@ -9,7 +9,6 @@ grails bees-db-list
 
 target(beesDbList: "Returns a list of all the databases associated with your account.") {
 	depends(checkConfig, prepareClient)
-	if(usage()) return
 	
 	def response 
 	try {
