@@ -29,17 +29,26 @@ target(beesAppDeploy: "Deploy a new version of an application using a WAR archiv
 		return
 	}
 	
+	def parameters = [:]
+	
+	def permgenSize = grailsSettings.config.cloudbees?.permgensize
+	if(permgenSize){
+		parameters.put "jvmPermSize", permgenSize
+		event "StatusFinal", ["Application PermGen size set to ${parameters.jvmPermSize}MB"]
+	}
+	
 	def response
 	def progress = new HashWriteProgress()
 	try {
 		event "StatusFinal", ["Deploying $appId tagged at version $tag"]
-		response = beesClient.applicationDeployWar(appId, null, tag, warName, null, true, progress)
+		response = beesClient.applicationDeployArchive(appId, null, tag, warName, null, "war", true, parameters, progress)
 		
 	} catch (Exception e) {
 		dealWith e
 	}
 	
 	event "StatusFinal", ["Application uploaded successfully to: $response.url"]
+	
 }
 
 setDefaultTarget(beesAppDeploy)
