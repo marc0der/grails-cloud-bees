@@ -10,7 +10,8 @@ grails bees-db-info [dbId]
 
 target(beesDbInfo: "Returns information about connecting to a database.") {
 	depends(checkConfig, prepareClient)
-
+	if(usage()) return
+	
 	String dbId = buildDbId()
 	
 	def info

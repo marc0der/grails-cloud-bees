@@ -14,6 +14,8 @@ grails bees-app-tail [appId] [LOGNAME]
 target(beesAppTail: "Establishes a persistent connection to the application logs.") {
 	depends(checkConfig, prepareClient)
 	
+	if(usage()) return
+	
 	String log = getOptionalArg(1) ?: 'server'
 	
 	String appId = buildAppId()

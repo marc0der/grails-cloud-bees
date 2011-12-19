@@ -10,7 +10,8 @@ grails bees-db-drop [dbId]
 
 target(beesDbDrop: "Drop a MySQL database.") {
 	depends(checkConfig, prepareClient)
-
+	if(usage()) return
+	
 	String dbId = buildDbId()
 	
 	def response

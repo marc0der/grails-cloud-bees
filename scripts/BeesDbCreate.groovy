@@ -12,6 +12,7 @@ grails bees-db-create [dbId] [username] [password]
 
 target(beesDbCreate: "Create a new MySQL database.") {
 	depends(checkConfig, prepareClient)
+	if(usage()) return
 
 	String dbId = buildDbId()
 	String username = getOptionalArg(1) ?: dbId

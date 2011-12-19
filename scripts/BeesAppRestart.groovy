@@ -13,6 +13,8 @@ grails bees-app-restart [appId]
 target(beesAppRestart: "Restarts all deployed instances of an application.") {
 	depends(checkConfig, prepareClient)
 	
+	if(usage()) return
+	
 	String appId = buildAppId()
 	
 	def response
