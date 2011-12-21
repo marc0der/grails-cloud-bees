@@ -10,8 +10,6 @@ grails bees-app-list
 target(beesAppList: "Returns the list of applications available to your account.") {
 	depends(checkConfig, prepareClient)
 	
-	if(usage()) return
-	
 	def response
 	try{
 		response = beesClient.applicationList()

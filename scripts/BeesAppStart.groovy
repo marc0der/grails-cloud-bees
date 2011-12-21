@@ -13,8 +13,6 @@ grails bees-app-start [appId]
 target(beesAppStart: "Starts all deployed instances of an application.") {
 	depends(checkConfig, prepareClient)
 	
-	if(usage()) return
-	
 	String appId = buildAppId()
 	
 	def response

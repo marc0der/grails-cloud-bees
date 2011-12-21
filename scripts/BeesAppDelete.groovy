@@ -11,8 +11,6 @@ grails bees-app-delete [appId]
 target(beesAppDelete: "Delete an application.") {
 	depends(checkConfig, prepareClient)
 	
-	if(usage()) return
-	
 	String appId = buildAppId()
 	
 	def response

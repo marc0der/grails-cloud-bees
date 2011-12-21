@@ -1,15 +1,5 @@
 import grails.util.Metadata
 
-usage = {
-	if(argsMap.params[0] == 'help'){
-		event "StatusFinal", ["\nUsage (optionals in square brackets):\n$USAGE"]
-		return true
-		
-	} else {
-		return false
-	}
-}
-
 buildAppId = {
 	String account = grailsSettings.config.cloudbees.account
 	String optionalName = getOptionalArg(0)
