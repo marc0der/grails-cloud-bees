@@ -1,5 +1,4 @@
 import grails.util.Metadata
-import com.cloudbees.api.HashWriteProgress
 
 includeTargets << grailsScript("Init")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
@@ -14,7 +13,7 @@ grails bees-app-deploy [appId] [tag]
 
 target(beesAppDeploy: "Deploy a new version of an application using a WAR archive file.") {
 	depends(checkConfig, prepareClient)
-	
+
 	String appId = buildAppId()
 	String tag = buildAppTag()
 	
@@ -36,7 +35,7 @@ target(beesAppDeploy: "Deploy a new version of an application using a WAR archiv
 	}
 	
 	def response
-	def progress = new HashWriteProgress()
+	def progress = classLoader.loadClass("org.grails.plugins.cloudbees.HashWriteProgress", true).newInstance()
 	try {
 		event "StatusFinal", ["Deploying $appId tagged at version $tag"]
 		response = beesClient.applicationDeployArchive(appId, null, tag, warName, null, "war", true, parameters, progress)
