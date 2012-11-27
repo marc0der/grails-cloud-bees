@@ -7,7 +7,7 @@ USAGE = '''
 grails bees-config-unset [type] [appId]
     type   : global or application
     appId  : application id (defaults to application name)
-'''                                                                      `
+'''
 
 target(beesConfigSet: "Sets configuration parameter globally or for an application.") {
     depends(checkConfig, prepareClient)
