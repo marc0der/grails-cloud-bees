@@ -9,3 +9,7 @@ lib/
 stacktrace.log
 target
 target-eclipse/
+cloud-bees-grailsPlugins.iml
+cloud-bees.iml
+cloud-bees.ipr
+cloud-bees.iws
