@@ -1,5 +1,4 @@
 import com.cloudbees.api.BeesClient
-import com.cloudbees.api.BeesClientException
 
 target(prepareClient: "Prepare the BeesClient"){
 	event "StatusUpdate", ["Preparing the BeesClient"]
@@ -41,4 +40,25 @@ buildDataSourceFragment = { info ->
             }
         }
 	"""
+}
+
+buildParamXmlFile = { csv ->
+    def xmlFile = File.createTempFile("config-", ".xml")
+
+    if(!csv.contains("=")){
+        event "StatusError", ["Invalid parameter. Use key=value format."]
+        exit 0
+    }
+
+    def params = csv.tokenize(',')
+    event "StatusFinal", ["Configuration Parameter:"]
+    xmlFile << "<config>"
+    params.each { parameter ->
+        def name = parameter.split('=')[0]
+        def value = parameter.split('=')[1]
+        event "StatusFinal", ["    $name : $value"]
+        xmlFile << "<param name=\"$name\" value=\"$value\"/>"
+    }
+    xmlFile << "</config>"
+    xmlFile
 }

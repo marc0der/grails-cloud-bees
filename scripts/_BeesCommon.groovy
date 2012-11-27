@@ -1,8 +1,12 @@
 import grails.util.Metadata
 
-buildAppId = {
+buildOrgId = {
+    grailsSettings.config.cloudbees.account
+}
+
+buildAppId = { int index = 0 ->
 	String account = grailsSettings.config.cloudbees.account
-	String optionalName = getOptionalArg(0)
+	String optionalName = getOptionalArg(index)
 	String configAppName = Metadata.current.'app.name'
 	String appName = optionalName ?: configAppName.toLowerCase()
 	"${account}/${appName}"
@@ -34,4 +38,17 @@ getOptionalArg = { int index = 0 ->
 	def argsList = argsMap.params
 	String value = argsList[index]
 	return value
+}
+
+getConfigType = { int index = 0 ->
+    String type = getOptionalArg(index)
+    if(! ['application', 'global'].contains(type)){
+        event "StatusError", ["Use a valid type: application/global"]
+        exit 0
+
+    } else {
+        event "StatusFinal", ["Getting $type configuration."]
+    }
+
+    type
 }
