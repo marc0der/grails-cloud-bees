@@ -9,9 +9,11 @@ grails bees-config-set <name1=value1,name2=value2> [type] [appId]
     value  : the value of the configuraiton parameter
     type   : global or application
     appId  : application id (defaults to application name)
+
+Beware! Will delete all existing parameters!
 '''
 
-target(beesConfigSet: "Sets configuration parameter globally or for an application.") {
+target(beesConfigSet: "Sets configuration parameters globally or for an application. Overwrites existing ones!") {
     depends(checkConfig, prepareClient)
 
     def type = getConfigType(1)
