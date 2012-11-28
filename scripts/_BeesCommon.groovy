@@ -12,10 +12,16 @@ buildAppId = { int index = 0 ->
 	"${account}/${appName}"
 }
 
-buildDbId = {
-	String optionalName = getOptionalArg(0)
+buildDbId = { int index = 0 ->
+	String optionalName = getOptionalArg(index)
 	String configAppName = Metadata.current.'app.name'
 	return (optionalName ?: configAppName.toLowerCase())
+}
+
+buildDbSnapshotTitle = { int index = 0 ->
+    String optionalTitle = getOptionalArg(index)
+    String defaultTitle = new Date().format("YYYY-MM-dd HH:mm:ss")
+    return (optionalTitle ?: defaultTitle)
 }
 
 buildAppTag = {
