@@ -12,10 +12,19 @@ buildAppId = { int index = 0 ->
 	"${account}/${appName}"
 }
 
-buildDbId = { int index = 0 ->
+buildDbId = { int index, appCtx = 0 ->
 	String optionalName = getOptionalArg(index)
-	String configAppName = Metadata.current.'app.name'
-	return (optionalName ?: configAppName.toLowerCase())
+
+    def databaseName
+    def rs = appCtx.getBean('dataSource').connection.metaData.catalogs
+    if(rs.next() && rs.next()){
+        databaseName = rs.getString(1)
+    }
+
+	def selectedName = (optionalName ?: databaseName) ?: Metadata.current.'app.name'
+    event "StatusFinal", ["Database name: $selectedName"]
+
+    selectedName
 }
 
 buildDbSnapshotTitle = { int index = 0 ->

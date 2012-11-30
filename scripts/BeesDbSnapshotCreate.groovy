@@ -1,19 +1,20 @@
 includeTargets << grailsScript("Init")
+includeTargets << grailsScript("_GrailsBootstrap")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
 
 USAGE = '''
-grails bees-db-snapshot-create [dbId] [title]
-	dbId  : the database name (defaults to application name)
+grails bees-db-snapshot-create [title] [dbId]
 	title : the snapshot title (defaults to a timestamp)
+	dbId        : the database name (defaults first to environment database name, then application name)
 '''
 
 target(beesDbSnapshotCreate: "Create a database snapshot.") {
-    depends(checkConfig, prepareClient)
+    depends(checkConfig, prepareClient, loadApp, configureApp)
 
-    String dbId = buildDbId(0)
-    String title = buildDbSnapshotTitle(1)
+    String title = buildDbSnapshotTitle(0)
+    String dbId = buildDbId(1, appCtx)
 
     def response
     try {
