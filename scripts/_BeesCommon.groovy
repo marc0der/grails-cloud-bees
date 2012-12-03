@@ -29,7 +29,7 @@ buildDbId = { int index, appCtx = 0 ->
 
 buildDbSnapshotTitle = { int index = 0 ->
     String optionalTitle = getOptionalArg(index)
-    String defaultTitle = new Date().format("YYYY-MM-dd HH:mm:ss")
+    String defaultTitle = new Date().format("yyyy-MM-dd HH:mm:ss")
     return (optionalTitle ?: defaultTitle)
 }
 
