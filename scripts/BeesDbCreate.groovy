@@ -1,4 +1,5 @@
 includeTargets << grailsScript("Init")
+includeTargets << grailsScript("_GrailsBootstrap")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_CheckConfig.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesHelper.groovy")
 includeTargets << new File("${cloudBeesPluginDir}/scripts/_BeesCommon.groovy")
@@ -11,9 +12,9 @@ grails bees-db-create [dbId] [username] [password]
 '''
 
 target(beesDbCreate: "Create a new MySQL database.") {
-	depends(checkConfig, prepareClient)
+	depends(checkConfig, prepareClient, loadApp, configureApp)
 
-	String dbId = buildDbId()
+	String dbId = buildDbId(appCtx)
 	String username = getOptionalArg(1) ?: dbId
 	String password = getOptionalArg(2) ?: 'changeme!'
 	String account = grailsSettings.config.cloudbees.account
