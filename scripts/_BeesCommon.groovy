@@ -12,7 +12,7 @@ buildAppId = { int index = 0 ->
 	"${account}/${appName}"
 }
 
-buildDbId = { int index, appCtx = 0 ->
+buildDbId = { appCtx, int index  = 0 ->
 	String optionalName = getOptionalArg(index)
 
     def databaseName
