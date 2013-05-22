@@ -12,7 +12,7 @@ buildAppId = { int index = 0 ->
 	"${account}/${appName}"
 }
 
-buildDbId = { appCtx, int index  = 0 ->
+buildDbId = { int index  = 0, appCtx ->
 	String optionalName = getOptionalArg(index)
 
     def databaseName
@@ -25,6 +25,10 @@ buildDbId = { appCtx, int index  = 0 ->
     event "StatusFinal", ["Database name: $selectedName"]
 
     selectedName
+}
+
+def buildDbId(appCtx) {
+  buildDbId(0, appCtx)
 }
 
 buildDbSnapshotTitle = { int index = 0 ->
